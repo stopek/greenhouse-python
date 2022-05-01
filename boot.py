@@ -1,15 +1,12 @@
-from os import environ
-
 import machine
 
 from classes.Builder import build
 from classes.Loader import Loader
 from classes.Pixel import initialize_pixel
 from classes.Wifi import connect_to_wifi
+from config import WIFI_PASSWORD, WIFI_SSID, DATA_ENDPOINT, TOTAL_LEDS
 
 machine.freq(240000000)
-
-totalLeds = 60
 
 print("----------------------------------------------------------------------")
 print()
@@ -17,26 +14,24 @@ print()
 
 
 segments = {
-    "green": initialize_pixel(32, totalLeds),
-    "yellow": initialize_pixel(33, totalLeds),
-    "black": initialize_pixel(25, totalLeds),
-    "red": initialize_pixel(26, totalLeds)
+    "green": initialize_pixel(32, TOTAL_LEDS),
+    "yellow": initialize_pixel(33, TOTAL_LEDS),
+    "black": initialize_pixel(25, TOTAL_LEDS),
+    "red": initialize_pixel(26, TOTAL_LEDS)
 }
 
 print("----------------------------------------------------------------------")
 
 loader = Loader(segments)
 loader.enable(3)
-connect_to_wifi(environ.get('WIFI_SSID'), environ.get('WIFI_PASSWORD'))
+connect_to_wifi(WIFI_SSID, WIFI_PASSWORD)
 loader.disable()
 
 print("----------------------------------------------------------------------")
 
-endpoint = environ.get('DATA_ENDPOINT')
-build(segments, endpoint)
+build(segments, DATA_ENDPOINT)
 loadTimer = machine.Timer(1)
-loadTimer.init(period=5000, mode=machine.Timer.PERIODIC, callback=lambda t: build(segments, endpoint))
-
+loadTimer.init(period=5000, mode=machine.Timer.PERIODIC, callback=lambda t: build(segments, DATA_ENDPOINT))
 
 print()
 print()

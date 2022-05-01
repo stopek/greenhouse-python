@@ -1,4 +1,4 @@
-from libs.MicroWebCli.microWebCli import MicroWebCli
+from libs.microWebCli import MicroWebCli
 
 
 def get_json(url):

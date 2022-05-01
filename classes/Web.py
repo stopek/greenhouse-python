@@ -2,8 +2,8 @@ from libs.MicroWebCli.microWebCli import MicroWebCli
 
 
 def get_json(url):
-    wCli = MicroWebCli(url)
-    wCli.OpenRequest()
-    response = wCli.GetResponse()
+    web_cli = MicroWebCli(url)
+    web_cli.OpenRequest()
+    response = web_cli.GetResponse()
 
     return response.ReadContentAsJSON()

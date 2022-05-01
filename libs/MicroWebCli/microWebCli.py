@@ -326,7 +326,7 @@ class MicroWebCli:
         self.OpenRequest(data=data,
                          contentType='application/x-www-form-urlencoded')
 
-    # ------------------------------------------------------------------------   
+    # ------------------------------------------------------------------------
 
     def OpenRequestJSONData(self, o=None):
         if not 'json' in globals():
@@ -338,7 +338,7 @@ class MicroWebCli:
         self.OpenRequest(data=data,
                          contentType='application/json')
 
-    # ------------------------------------------------------------------------   
+    # ------------------------------------------------------------------------
 
     def RequestWriteData(self, data):
         self._write(data)

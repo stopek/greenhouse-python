@@ -2,11 +2,14 @@ import json
 
 from classes.Generator import display_segment
 from classes.Web import get_json
+from helpers import line
 
 old_json = {}
 
 
 def build(segments, url):
+    print()
+    line()
     global old_json
 
     try:

@@ -20,11 +20,11 @@ def build(segments, url):
                 for segment in api_json["segments"]:
                     if "segment" in segment.keys() and segment["segment"] in segments.keys():
                         display_segment(segment, segments[segment["segment"]])
-                    # else:
-                    #     print("Segment ", segment["segment"], " not found!")
-            # else:
-            #     print("No changes.")
-        # else:
-        #     print("Segment key doesnt exists...")
+                    else:
+                        print("Segment ", segment["segment"], " not found.")
+            else:
+                print("No changes.")
+        else:
+            print("Segment key doesnt exists...")
     except ValueError:
         print("Oops! We have a problem. Try again...")

@@ -2,14 +2,13 @@ from machine import Timer
 
 from classes.Builder import build
 from classes.Loader import Loader
+from classes.Log import Log
 from classes.Pixel import initialize_pixel
 from classes.Wifi import connect_to_wifi
 from config import WIFI_PASSWORD, WIFI_SSID, DATA_ENDPOINT, TOTAL_LEDS
-from helpers import line
 
-line()
-print()
-print()
+Log.line()
+Log.empty(2)
 
 segments = {
     "green": initialize_pixel(32, TOTAL_LEDS),
@@ -18,19 +17,18 @@ segments = {
     "red": initialize_pixel(26, TOTAL_LEDS)
 }
 
-line()
+Log.line()
 
 loader = Loader(segments)
 loader.enable(3)
 connect_to_wifi(WIFI_SSID, WIFI_PASSWORD)
 loader.disable()
 
-line()
+Log.line()
 
 build(segments, DATA_ENDPOINT)
 loadTimer = Timer(1)
 loadTimer.init(period=5000, mode=Timer.PERIODIC, callback=lambda t: build(segments, DATA_ENDPOINT))
 
-print()
-print()
-line()
+Log.empty(2)
+Log.line()

@@ -1,15 +1,15 @@
 import json
 
 from classes.Generator import display_segment
+from classes.Log import Log
 from classes.Web import get_json
-from helpers import line
 
 old_json = {}
 
 
 def build(segments, url):
-    print()
-    line()
+    Log.empty()
+    Log.line()
     global old_json
 
     try:
@@ -24,10 +24,10 @@ def build(segments, url):
                     if "segment" in segment.keys() and segment["segment"] in segments.keys():
                         display_segment(segment, segments[segment["segment"]])
                     else:
-                        print("Segment ", segment["segment"], " not found.")
+                        Log.log("Segment " + segment["segment"] + " not found.")
             else:
-                print("No changes.")
+                Log.log("No changes.")
         else:
-            print("Segment key doesnt exists...")
+            Log.log("Segment key doesnt exists...")
     except ValueError:
-        print("Oops! We have a problem. Try again...")
+        Log.log("Oops! We have a problem. Try again...")

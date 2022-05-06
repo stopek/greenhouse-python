@@ -12,7 +12,7 @@ class Loader:
 
     def __init__(self, segments):
         self.segments = segments
-        self.loadTimer = Timer(0)
+        self.timer = Timer(0)
 
     def loop(self, to_index, color=(0, 0, 255)):
         if self.current_index == to_index:
@@ -28,9 +28,9 @@ class Loader:
 
     def enable(self, to_index):
         clear_segments(self.segments)
-        self.loadTimer.init(period=400, mode=Timer.PERIODIC, callback=lambda t: self.loop(to_index))
+        self.timer.init(period=50, mode=Timer.PERIODIC, callback=lambda t: self.loop(to_index))
 
     def disable(self):
         time.sleep(2)
         clear_segments(self.segments)
-        self.loadTimer.deinit()
+        self.timer.deinit()

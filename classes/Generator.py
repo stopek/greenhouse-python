@@ -1,7 +1,8 @@
 import math
 import time
 
-from classes.Color import hex_to_rgb
+from classes.Color import hex_to_rgb, wavelength_to_rgb
+from classes.Log import Log
 from classes.Pixel import clear_segment
 
 
@@ -25,9 +26,26 @@ def display_segment(segment, np):
         ranges = [1 for _ in range(real_leds)]
 
         for color in part["colors"]:
-            color_hex = color["color"]
-            lighted[color_hex] = 0
-            color_rgb = hex_to_rgb(color_hex)
+            color_value = None
+            color_rgb = None
+
+            if "wave" in color.keys():
+                color_value = str(color["wave"])
+                color_rgb = wavelength_to_rgb(color["wave"])
+            elif "color" in color.keys():
+                color_value = color["color"]
+                color_rgb = hex_to_rgb(color_value)
+            else:
+                continue
+
+            Log.log("Display color:")
+            Log.print(color_value)
+            Log.log("RGB:")
+            Log.log(color_rgb)
+            Log.line()
+
+            lighted[color_value] = 0
+
             leds_to_light = math.ceil(color["percentage"] * real_leds / 100)
             nth = math.floor(real_leds / leds_to_light)
             move = math.ceil(math.floor(nth / 2) + (real_leds - leds_to_light * nth) / 2)
@@ -35,7 +53,7 @@ def display_segment(segment, np):
             for j in range(real_leds):
                 lighted_on = False
 
-                if nth > 0 and (j - move) % nth == 0 and lighted[color_hex] < leds_to_light:
+                if nth > 0 and (j - move) % nth == 0 and lighted[color_value] < leds_to_light:
                     if ranges[j] == 1 and j < real_leds:
                         light_on_index = j + from_value
                         np[light_on_index] = color_rgb
@@ -53,7 +71,7 @@ def display_segment(segment, np):
                             lighted_on = True
 
                     if lighted_on:
-                        lighted[color_hex] = lighted[color_hex] + 1
+                        lighted[color_value] = lighted[color_value] + 1
 
         np.write()
 

@@ -1,7 +1,7 @@
 import math
 import time
 
-from classes.Color import hex_to_rgb, wavelength_to_rgb
+from classes.Color import hex_to_rgb, wavelength_to_rgb, kelvin_to_rgb
 from classes.Log import Log
 from classes.Pixel import clear_segment
 
@@ -35,6 +35,9 @@ def display_segment(segment, np):
             elif "color" in color.keys():
                 color_value = color["color"]
                 color_rgb = hex_to_rgb(color_value)
+            elif "kelvin" in color.keys():
+                color_value = str(color['kelvin'])
+                color_rgb = kelvin_to_rgb(color['kelvin'])
             else:
                 continue
 

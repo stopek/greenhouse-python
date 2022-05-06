@@ -1,4 +1,8 @@
+import machine
+
 from classes.Log import Log
+
+machine.freq(240000000)
 
 
 def boot():

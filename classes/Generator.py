@@ -1,12 +1,14 @@
 import math
 import time
 
+from neopixel import NeoPixel
+
 from classes.Color import hex_to_rgb, wavelength_to_rgb, kelvin_to_rgb
 from classes.Log import Log
 from classes.Pixel import clear_segment
 
 
-def found_next_free(busy, total_leds, ranges):
+def found_next_free(busy: int, total_leds: int, ranges):
     for i in range(busy + 1, total_leds):
         if ranges[i] == 1:
             return i
@@ -14,7 +16,7 @@ def found_next_free(busy, total_leds, ranges):
     return -1
 
 
-def display_segment(segment, np):
+def display_segment(segment, np: NeoPixel):
     clear_segment(np)
 
     for part in segment["parts"]:
@@ -38,7 +40,8 @@ def display_segment(segment, np):
             elif "kelvin" in color.keys():
                 color_value = str(color['kelvin'])
                 color_rgb = kelvin_to_rgb(color['kelvin'])
-            else:
+
+            if color_value is None and color_rgb is None:
                 continue
 
             Log.log("Display color:")
@@ -79,7 +82,7 @@ def display_segment(segment, np):
         np.write()
 
 
-def demo(np):
+def demo(np: NeoPixel):
     n = np.n
 
     # cycle

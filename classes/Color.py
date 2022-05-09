@@ -1,4 +1,4 @@
-def hex_to_rgb(hex_string):
+def hex_to_rgb(hex_string: str):
     r_hex = None
     g_hex = None
     b_hex = None
@@ -25,7 +25,7 @@ def hex_to_rgb(hex_string):
     return int(r_hex, 16), int(g_hex, 16), int(b_hex, 16)
 
 
-def wavelength_to_rgb(wavelength, gamma=0.80, intensity_max=255):
+def wavelength_to_rgb(wavelength: int, gamma: float = 0.80, intensity_max: int = 255):
     factor = None
     red = None
     green = None

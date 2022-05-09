@@ -26,7 +26,7 @@ class Loader:
 
             self.current_index = self.current_index + 1
 
-    def enable(self, to_index):
+    def enable(self, to_index: int):
         clear_segments(self.segments)
         self.timer.init(period=50, mode=Timer.PERIODIC, callback=lambda t: self.loop(to_index))
 
